@@ -34,7 +34,7 @@ export const schedule2026 = attachLogos([
     dateLabel: "Thursday 5th March 2026",
     items: [
       {
-        start: "09:30",
+        start: "09:31",
         end: "10:00",
         title: "QETLabs Coffee and Pastries",
         location: "Main Room",
