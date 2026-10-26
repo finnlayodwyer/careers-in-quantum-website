@@ -7,7 +7,7 @@ import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
-	site: "https://careers-in-quantum.com",
+	site: "https://careers-in-quantum.co.uk",
 	integrations: [mdx(), sitemap()],
 	adapter: cloudflare({
 		platformProxy: {
