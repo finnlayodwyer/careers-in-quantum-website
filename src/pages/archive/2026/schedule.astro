@@ -1,0 +1,10 @@
+---
+import ArchiveSchedulePage from "../../../components/archive/ArchiveSchedulePage.astro";
+import { schedule2026 } from "../../../data/archive/2026/schedule.ts";
+---
+<ArchiveSchedulePage
+  year="2026"
+  heading="CiQ 2026 Schedule"
+  locationLine="Location: Richmond Building, Queen's Road, Bristol, BS8 1LN"
+  days={schedule2026 as unknown as any}
+/>

@@ -1,8 +1,9 @@
 ---
 // src/components/archive/Affiliations.astro
 import { Image } from "astro:assets";
-import QECDT from "../../assets/company_logos/QECDTlogo.webp";
+import QIST from "../../assets/company_logos/QIST_dark.png";
 import UoB from "../../assets/company_logos/UoB.svg";
+import Sussex from "../../assets/company_logos/Sussex.svg";
 ---
 
 <section class="affiliations">
@@ -11,10 +12,10 @@ import UoB from "../../assets/company_logos/UoB.svg";
 
     <div class="grid" aria-label="Affiliations">
       <div class="item">
-        <a href="https://www.bristol.ac.uk/quantum-engineering/" class="link">
+        <a href="https://www.qist-cdt.info/" class="link">
           <Image
-            src={QECDT}
-            alt="Centre for Doctoral Training in Quantum Engineering logo"
+            src={QIST}
+            alt="Quantum Information Science and Technologies Centre for Doctoral Training logo"
             class="logo"
             loading="lazy"
             decoding="async"
@@ -25,6 +26,12 @@ import UoB from "../../assets/company_logos/UoB.svg";
       <div class="item">
         <a href="https://www.bristol.ac.uk" class="link">
           <Image src={UoB} alt="University of Bristol logo" class="logo" loading="lazy" decoding="async" />
+        </a>
+      </div>
+
+      <div class="item">
+        <a href="https://www.sussex.ac.uk" class="link">
+          <Image src={Sussex} alt="University of Sussex logo" class="logo" loading="lazy" decoding="async" />
         </a>
       </div>
     </div>

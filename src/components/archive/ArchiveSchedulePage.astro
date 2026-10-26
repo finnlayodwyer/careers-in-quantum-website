@@ -6,7 +6,6 @@ import Footer from "../Footer.astro";
 import ScheduleGrid from "../Schedule.astro";
 import Affiliations from "../site/Affiliations.astro";
 import BackLink from "../ui/BackLink.astro";
-import TicketBanner from '../site/TicketBanner.astro';
 import ScrollButton from "../ui/ScrollButton.astro";
 type ScheduleItemType =
   | "Talk"
@@ -35,7 +34,7 @@ type ScheduleDay = {
 };
 
 type Props = {
-  year: "2024" | "2025";
+  year: "2024" | "2025" | "2026";
   heading: string;
   locationLine: string;
   days: ScheduleDay[];
@@ -57,7 +56,6 @@ const backHref = `/archive/${year}`;
   </head>
 
   <body>
-    <TicketBanner />
     <Header />
     <ScrollButton/>
     <section class="topbar">

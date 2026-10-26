@@ -193,7 +193,6 @@ const archiveStates = archiveLinks.map(a => ({
   const MOBILE_BP = 1450; // Updated to match your CSS breakpoint
   const COMPACT_SCROLL_Y = 220;
   
-  let lastScrollY = window.scrollY;
 
   if (header && menu && burgerInline && burgerFloat) {
     const archiveToggle = header.querySelector('[data-archive-toggle]');
@@ -252,12 +251,8 @@ const archiveStates = archiveLinks.map(a => ({
         // Force header to NOT be compact so it stays visible and clickable
         header.classList.remove('is-compact');
         burgerFloat.setAttribute('hidden', '');
-        
-        // Only close menu if scrolling DOWN significantly
-        if (currentScroll > lastScrollY && currentScroll > 50) {
-          closeMenu();
-        }
-      } 
+        // The menu stays open while scrolling; it closes via the burger or a click outside.
+      }
       
       // 2. DESKTOP BEHAVIOR (Compact/Float Mode)
       else {
@@ -274,7 +269,6 @@ const archiveStates = archiveLinks.map(a => ({
           if (wasCompact) closeMenu();
         }
       }
-      lastScrollY = currentScroll;
     };
 
     burgerInline.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); toggleMenu(); });
@@ -479,6 +473,15 @@ const archiveStates = archiveLinks.map(a => ({
   }
 
   [hidden] { display: none !important; }
+
+  /* The header is sticky, so a menu taller than the screen below it gets cut off.
+     Cap it at the remaining screen height and let it scroll on its own. */
+  .header:not(.is-compact) .mobile-menu {
+    max-height: calc(100vh - 96px - 2rem);
+    max-height: calc(100dvh - 96px - 2rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
 /* Ensure mobile header is always solid and interactive */
 @media (hover: none) {
 .header {

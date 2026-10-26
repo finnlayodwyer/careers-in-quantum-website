@@ -6,23 +6,24 @@ import Footer from "../Footer.astro";
 import LogoGrid from "../ui/LogoGrid.astro";
 import Affiliations from "../site/Affiliations.astro";
 import BackLink from "../ui/BackLink.astro";
-import TicketBanner from '../site/TicketBanner.astro';
 import ScrollButton from "../ui/ScrollButton.astro";
 import spons2024 from "../../content/attending/2024spons.json";
 import spons2025 from "../../content/attending/2025spons.json";
 import attending2024 from "../../content/attending/2024attending.json";
 import attending2025 from "../../content/attending/2025attending.json";
+import spons2026 from "../../content/attending/2026spons.json";
+import attending2026 from "../../content/attending/2026attending.json";
 
 import {
   buildAttendingItems,
   type AttendingMetaMap,
 } from "../../lib/spons";
 
-type Props = { year: "2024" | "2025" };
+type Props = { year: "2024" | "2025" | "2026" };
 const { year } = Astro.props as Props;
 
-const sponsMeta = (year === "2024" ? spons2024 : spons2025) as AttendingMetaMap;
-const attendingMeta = (year === "2024" ? attending2024 : attending2025) as AttendingMetaMap;
+const sponsMeta = (year === "2024" ? spons2024 : year === "2025" ? spons2025 : spons2026) as AttendingMetaMap;
+const attendingMeta = (year === "2024" ? attending2024 : year === "2025" ? attending2025 : attending2026) as AttendingMetaMap;
 
 // Vite requires static glob strings.
 const sponModules2024 = import.meta.glob("../../assets/2024/spons/*.{avif,webp,png,jpg,jpeg,svg}", {
@@ -51,9 +52,19 @@ const attendingModules2025 = import.meta.glob("../../assets/2025/attending/*.{av
   import: "default",
 });
 
-const sponModules = year === "2024" ? sponModules2024 : sponModules2025;
-const attendingModules = year === "2024" ? attendingModules2024 : attendingModules2025;
-const partnerModules = year === "2024" ? partnerModules2024 : partnerModules2025;
+// 2026 keeps exhibitors in exhibs/, and its partners/ logos duplicate those in spons/, so partners are skipped.
+const sponModules2026 = import.meta.glob("../../assets/2026/spons/*.{avif,webp,png,jpg,jpeg,svg}", {
+  eager: true,
+  import: "default",
+});
+const attendingModules2026 = import.meta.glob("../../assets/2026/exhibs/*.{avif,webp,png,jpg,jpeg,svg}", {
+  eager: true,
+  import: "default",
+});
+
+const sponModules = year === "2024" ? sponModules2024 : year === "2025" ? sponModules2025 : sponModules2026;
+const attendingModules = year === "2024" ? attendingModules2024 : year === "2025" ? attendingModules2025 : attendingModules2026;
+const partnerModules = year === "2024" ? partnerModules2024 : year === "2025" ? partnerModules2025 : {};
 
 const sponItems = buildAttendingItems(sponModules, sponsMeta);
 const exhibitors = buildAttendingItems(attendingModules, attendingMeta);
@@ -74,7 +85,6 @@ const backHref = `/archive/${year}`;
   </head>
 
   <body>
-    <TicketBanner />
     <Header />
     <ScrollButton/>
     <section class="topbar">

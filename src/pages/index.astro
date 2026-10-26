@@ -4,26 +4,26 @@ import Section from "../components/ui/Section.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { Image } from "astro:assets";
 
-import Logo from "../assets/logo/QECDTlogo.webp";
+import Logo from "../assets/company_logos/QIST_dark.png";
 import bg from "../assets/background/bg.webp";
-
-import attendingMeta from "../content/attending/2026attending.json";
+import mt from "../assets/background/mountain.jpg";
+import attendingMeta from "../content/attending/2027attending.json";
 import LogoGrid from "../components/ui/LogoGrid.astro";
 import { buildAttendingItems, type AttendingMetaMap } from "../lib/spons";
 
 const attendingMetaMap = attendingMeta as AttendingMetaMap;
 
-const sponsModules = import.meta.glob("../assets/2026/spons/*.{avif,webp,png,jpg,jpeg,svg}", {
+const sponsModules = import.meta.glob("../assets/2027/spons/*.{avif,webp,png,jpg,jpeg,svg}", {
   eager: true,
   import: "default",
 });
 
-const exhibsModules = import.meta.glob("../assets/2026/exhibs/*.{avif,webp,png,jpg,jpeg,svg}", {
+const exhibsModules = import.meta.glob("../assets/2027/exhibs/*.{avif,webp,png,jpg,jpeg,svg}", {
   eager: true,
   import: "default",
 });
 
-const talksModules = import.meta.glob("../assets/2026/talks/*.{avif,webp,png,jpg,jpeg,svg}", {
+const talksModules = import.meta.glob("../assets/2027/talks/*.{avif,webp,png,jpg,jpeg,svg}", {
   eager: true,
   import: "default",
 });
@@ -32,7 +32,7 @@ const spons = buildAttendingItems(sponsModules, attendingMetaMap);
 const exhibs = buildAttendingItems(exhibsModules, attendingMetaMap);
 const talks = buildAttendingItems(talksModules, attendingMetaMap);
 
-const heroBackground = `linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url(${bg.src})`;
+const heroBackground = `linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url(${mt.src})`;
 
 const heroSectionStyle = `
   background-image: ${heroBackground};
@@ -72,13 +72,13 @@ const heroInnerStyle = `
       <h4>A student-led quantum careers fair</h4>
       
       <div class="hero-details">
-        <p>📅 5 March 2026, 9:30am to 6:30pm</p>
-        <p>📌 Richmond Building, Queen's Road, Bristol, BS8 1LN</p>
+        <p>📅 Date to be determined</p>
+        <p>📌 Location to be determined</p>
       </div>
 
       <p class="partner-line">
         <span class="partner-text">In partnership with</span>
-        <Image src={Logo} alt="QECDT Logo" aria-label="QECDT Logo"/>
+        <Image src={Logo} width={420} loading="eager" alt="Quantum Information Science and Technologies Centre for Doctoral Training logo" style="max-width: 80vw; height: auto;" />
       </p>
     </div>
   </Section>
@@ -145,38 +145,41 @@ const heroInnerStyle = `
       <br /><br />
       The event focuses around a careers fair with a breakout room for more in-depth talks and panel
       discussions.
-      <br /><br />
-      This year, <b>Careers in Quantum</b> will be held from 9:30am to 4:30pm on <b>Thursday 5 March 2026</b> at
-      <b> Richmond Building, Queen's Road, Bristol, BS8 1LN</b>.
     </p>
   </Section>
 
-  <Section 
-    background="#00bcae"  
-    padding="2rem 1.5rem"
-    maxWidth="900px"
-  >
-    <h2>Sponsored by</h2>
-    <LogoGrid items={spons} ariaLabel="2026 spons" />
-  </Section>
+  {spons.length > 0 && (
+    <Section
+      background="#00bcae"
+      padding="2rem 1.5rem"
+      maxWidth="900px"
+    >
+      <h2>Sponsored by</h2>
+      <LogoGrid items={spons} ariaLabel="2027 spons" />
+    </Section>
+  )}
 
-  <Section 
-    background="#87a5ad" 
-    padding="2rem 1.5rem"
-    maxWidth="900px"
-  >
-    <h2>Exhibitors</h2>
-    <LogoGrid items={exhibs} ariaLabel="2026 exhibs" />
-  </Section>
+  {exhibs.length > 0 && (
+    <Section
+      background="#87a5ad"
+      padding="2rem 1.5rem"
+      maxWidth="900px"
+    >
+      <h2>Exhibitors</h2>
+      <LogoGrid items={exhibs} ariaLabel="2027 exhibs" />
+    </Section>
+  )}
 
-    <Section 
-      background="#00bcae" 
+  {talks.length > 0 && (
+    <Section
+      background="#00bcae"
       padding="2rem 1.5rem"
       maxWidth="900px"
     >
       <h2>Speakers and panelists from</h2>
-      <LogoGrid items={talks} ariaLabel="2026 talks" />
+      <LogoGrid items={talks} ariaLabel="2027 talks" />
     </Section>
+  )}
     <style>
     html, body {
       margin: 0;

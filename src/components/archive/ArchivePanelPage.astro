@@ -6,7 +6,6 @@ import Footer from "../Footer.astro";
 import PanelGrid from "../PanelGrid.astro";
 import Affiliations from "../site/Affiliations.astro";
 import BackLink from "../ui/BackLink.astro";
-import TicketBanner from '../site/TicketBanner.astro';
 import ScrollButton from "../ui/ScrollButton.astro";
 type Speaker = {
   name: string;
@@ -32,7 +31,6 @@ const { title, speakers } = Astro.props as Props;
   </head>
 
   <body>
-    <TicketBanner />
     <Header />
     <ScrollButton/>
     <section class="topbar">

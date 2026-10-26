@@ -3,42 +3,11 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 import Section from "../components/ui/Section.astro";
 import ScrollButton from "../components/ui/ScrollButton.astro";
 import ScheduleGrid from "../components/Schedule.astro";
-import { schedule2026 } from "../data/archive/2026/schedule.ts"
+import { schedule2027 as schedule } from "../data/archive/2027/schedule.ts";
 
-type ScheduleItemType =
-  | "Talk"
-  | "Panel"
-  | "Break"
-  | "Workshop"
-  | "Keynote"
-  | "Registration"
-  | "Other";
-
-type ScheduleItem = {
-  start: string;
-  end?: string;
-  title: string;
-  type?: ScheduleItemType;
-  location?: string;
-  speakers?: string;
-  description?: string;
-  links?: { label: string; href: string }[];
-  companyLogo?: { src: string; alt: string; url?: string};
-};
-
-type ScheduleDay = {
-  dateLabel: string;
-  items: ScheduleItem[];
-};
-
-type Props = {
-  year: "2026";
-  heading: string;
-  locationLine: string;
-  days: ScheduleDay[];
-};
+// Set to the programme PDF's path in public/ (e.g. "/schedule/schedule.pdf") once it's ready.
+const programmePdf: string | undefined = undefined;
 ---
-
 <SiteLayout title="Schedule" description="Event schedule for Careers in Quantum.">
   <ScrollButton/>
   <Section background="hsl(192, 100%, 15%)" padding="0rem 1.5rem" maxWidth="900px">
@@ -46,15 +15,21 @@ type Props = {
       <center>
         <h1>Schedule</h1>
       </center>
-      <p>Click <a href="/schedule/schedule.pdf" download>here</a> to download a digital version of the programme (note that abstracts and bios are abridged).</p>
+      {schedule.length === 0 ? (
+        <p>The schedule for this year's Careers in Quantum will be announced soon.</p>
+      ) : programmePdf && (
+        <p>Click <a href={programmePdf} download>here</a> to download a digital version of the programme (note that abstracts and bios are abridged).</p>
+      )}
     </main>
   </Section>
 
-  <section class="schedule">
-      <div class="scheduleMargin">
-        <ScheduleGrid days={schedule2026} />
-      </div>
-  </section>
+  {schedule.length > 0 && (
+    <section class="schedule">
+        <div class="scheduleMargin">
+          <ScheduleGrid days={schedule} />
+        </div>
+    </section>
+  )}
 
   <style>
     .hero-content {

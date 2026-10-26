@@ -5,11 +5,10 @@ import Header from "../Header.astro";
 import Footer from "../Footer.astro";
 import Gallery from "../media/Gallery.astro";
 import Section from "../ui/Section.astro";
-import TicketBanner from '../site/TicketBanner.astro';
 import Affiliations from "../site/Affiliations.astro";
 import ScrollButton from "../ui/ScrollButton.astro";
 type Props = {
-  year: "2024" | "2025";
+  year: "2024" | "2025" | "2026";
   title: string;
   description: string;
 };
@@ -27,7 +26,18 @@ const galleryModules2025 = import.meta.glob(
   { eager: true, import: "default" }
 ) as Record<string, any>;
 
-const galleryModules = year === "2024" ? galleryModules2024 : galleryModules2025;
+const galleryModules2026 = import.meta.glob(
+  "../../assets/2026/gallery/*.{avif,webp,png,jpg,JPG,jpeg,svg}",
+  { eager: true, import: "default" }
+) as Record<string, any>;
+
+const galleryModules = year === "2024" ? galleryModules2024 : year === "2025" ? galleryModules2025 : galleryModules2026;
+
+const eventDetails = {
+  "2024": "on the 15th of March 2024 in the Richmond Building, Bristol",
+  "2025": "on the 4th of April 2025 at the Mercure Bristol Grand Hotel, Bristol",
+  "2026": "on the 5th of March 2026 in the Richmond Building, Bristol",
+}[year];
 const base = `/archive/${year}`;
 ---
 
@@ -39,7 +49,6 @@ const base = `/archive/${year}`;
   </head>
 
   <body>
-    <TicketBanner />
     <Header />
     <ScrollButton/>
     <Section
@@ -74,7 +83,7 @@ const base = `/archive/${year}`;
     >
       <h2>The Event</h2>
       <p>
-        CiQ 2024 brought together professionals from industry and academia to
+        CiQ {year} brought together professionals from industry and academia to
         engage with students and early-stage researchers on the variety and
         types of careers available in the quantum industry.
         <br />
@@ -85,8 +94,7 @@ const base = `/archive/${year}`;
         The event focused around a careers fair with a breakout room for more
         in-depth discussion and panels.
         <br />
-        This one day, in-person careers event was hosted on the 15th of March
-        2024 in the Richmond Building, Bristol.
+        This one day, in-person careers event was hosted {eventDetails}.
       </p>
     </Section>
 

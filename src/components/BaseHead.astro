@@ -7,8 +7,6 @@ import logoSrc from "../assets/logo/ciq_white_blue.webp";
 import bgSrc from "../assets/background/bg.webp";
 import smallLogoSrc from "../../public/ciq_logo_small_scaled_rounded.png";
 
-const ticketUrl = "https://www.eventbrite.co.uk/e/careers-in-quantum-2026-tickets-1980469226770?aff=oddtdtcreator";
-
 const optimizedLogo = await getImage({ src: logoSrc, format: 'webp' });
 const optimizedBackground = await getImage({ src: bgSrc, format: 'webp' });
 const optimizedSmallLogo = await getImage({ src: smallLogoSrc, format: 'png' });
@@ -23,28 +21,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
 ---
-
-<script is:inline>
-  // Blocking check: decides layout before first paint
-  (function() {
-    const isClosed = localStorage.getItem('ticketBannerClosed') === 'true';
-    if (!isClosed) {
-      document.documentElement.classList.add('banner-active');
-    }
-  })();
-</script>
-
-<style is:global>
-  /* Push page down ONLY when banner is active */
-  .banner-active {
-    margin-top: 50px; /* Adjust to match banner height */
-  }
-  
-  /* Ensure smooth slide-up for the margin */
-  document.documentElement {
-    transition: margin-top 0.3s ease-out;
-  }
-</style>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
